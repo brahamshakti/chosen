@@ -3,7 +3,7 @@ chosen
 
 This simple gem allows you to add a chosen field into your views.
 
-== Getting Started
+### Getting Started
 
 Rails 4.04:
 
@@ -16,7 +16,7 @@ The necessary files are already in your asset pipeline. Just add below lines in 
     <%= javascript_include_tag 'chosen.jquery' %>
     <%= stylesheet_link_tag 'chosen' %>
 
-== Usage
+### Usage
 
 You can also use it with the form helper like:
 
@@ -29,7 +29,7 @@ Where "name" is your object name.
 
 You can also pass options as it would be a normal select_field.
 
-== Other Available options
+### Other Available options
 
     :disabled
     :no_results_text
