@@ -5,7 +5,7 @@ This simple gem allows you to add a chosen field into your views.
 
 ### Getting Started
 
-Rails 4.04:
+Rails 4.0.4:
 
 Add into your Gemfile:
 
