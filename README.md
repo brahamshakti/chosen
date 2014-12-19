@@ -38,6 +38,8 @@ You can also pass options as it would be a normal select_field.
     :max_selected_options
     :disable_search_threshold
 
+you can also use multiple: multiple as used in normal tag.
+
 You can find detail here:
 
 https://github.com/harvesthq/chosen
