@@ -1,10 +1,20 @@
+class String
+  def underscore
+    self.gsub(/::/, '/').
+        gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+        gsub(/([a-z\d])([A-Z])/,'\1_\2').
+        tr("-", "_").
+        downcase
+  end
+end
+
 module Chosen
   module FormHelper
     include ActionView::Helpers::JavaScriptHelper
 
     # Mehtod that generates chosen select field inside a form
     def chosen_field(method, choices, options = {})
-      object_class = options[:object].class.to_s.underscore
+      object_class = options[:object].nil? ? "" : options[:object].class.to_s.underscore ## might return nil_class
       select_tag =  Chosen::InstanceTag.new(object_class, method)
       options.delete(:object)
       #### ci_options = Chosen Filed Option ####
@@ -16,17 +26,6 @@ module Chosen
     end
 
   end
-
-  class String
-    def underscore
-      self.gsub(/::/, '/').
-          gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-          gsub(/([a-z\d])([A-Z])/,'\1_\2').
-          tr("-", "_").
-          downcase
-    end
-  end
-
 end
 
 module Chosen::FormBuilder
@@ -35,7 +34,7 @@ module Chosen::FormBuilder
   end
 end
 
-class Chosen::InstanceTag
+class Chosen::InstanceTag 
  include ActionView::Helpers::TagHelper
  attr_reader :object, :method_name, :object_name
 
@@ -83,23 +82,23 @@ class Chosen::InstanceTag
   end
 
   def tag_name
-    "#{@object_name}[#{sanitized_method_name}]"
+    @object_name.blank? ? sanitized_method_name : "#{@object_name}[#{sanitized_method_name}]"
   end
 
   def tag_name_with_index(index)
-    "#{@object_name}[#{index}][#{sanitized_method_name}]"
+    @object_name.blank? ? sanitized_method_name : "#{@object_name}[#{index}][#{sanitized_method_name}]"
   end
 
   def tag_id
-    "#{sanitized_object_name}_#{sanitized_method_name}"
+    sanitized_object_name.blank? ? "#{sanitized_method_name}" : "#{sanitized_object_name}_#{sanitized_method_name}"
   end
 
   def tag_id_with_index(index)
-    "#{sanitized_object_name}_#{index}_#{sanitized_method_name}"
+    sanitized_object_name.blank? ? "#{sanitized_method_name}" : "#{sanitized_object_name}_#{index}_#{sanitized_method_name}"
   end
 
   def sanitized_object_name
-    @sanitized_object_name ||= @object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")
+    @sanitized_object_name ||= @object_name.blank? ? "" : @object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")
   end
 
   def sanitized_method_name
