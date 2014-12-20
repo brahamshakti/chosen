@@ -30,7 +30,8 @@ You can also use it with the form helper like:
         <%= f.submit 'Create' %>
     <% end %>
 
-Where "name" is your object name.
+Where "name" is your object name. Chosen automatically sets the default field text ("Choose a country...") by reading the select element's data-placeholder value. If no data-placeholder value is present, it will default to "Select an Option" or "Select Some Options" depending on whether the select is single or multiple.
+#If you want to make use of data-placeholderin rails just insert a blank option value at index 0.
 
 You can also pass options as it would be a normal select_field, plus all the chosen options available 
 
